@@ -1,6 +1,6 @@
 <template>
   <transition name="modal">
-    <div class="modal" v-if="showModal" @click="$emit('close')">
+    <div class="modal" @click="$emit('close')">
       <div class="modal__content" @click.stop="">
         <h2 class="modal__title">{{ title }}</h2>
         <button
@@ -23,10 +23,10 @@ export default {
       type: String,
       default: () => 'My modal',
     },
-    showModal: {
-      type: Boolean,
-      required: true,
-    },
+    // showModal: {
+    //   type: Boolean,
+    //   required: true,
+    // },
   },
 };
 </script>
