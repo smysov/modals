@@ -26,6 +26,35 @@
             @change="$v.email.$touch()"
           />
         </div>
+
+        <div class="form__column" :class="{ errorInput: $v.password.$error }">
+          <label for="password">Password:</label>
+          <p class="errorText" v-if="!$v.password.required">Filed is required!</p>
+          <p class="errorText" v-if="!$v.password.minLength">
+            Password must have at least {{ $v.password.$params.minLength.min }} !</p
+          >
+          <input
+            id="password"
+            type="password"
+            v-model="password"
+            :class="{ error: $v.password.$error }"
+            @change="$v.password.$touch()"
+          />
+        </div>
+
+        <div class="form__column" :class="{ errorInput: $v.repeatPassword.$error }">
+          <label for="repeatPassword">Confirm your password:</label>
+          <p class="errorText" v-if="!$v.repeatPassword.sameAsPassword"
+            >Passwords must be identical!</p
+          >
+          <input
+            id="repeatPassword"
+            type="password"
+            v-model="repeatPassword"
+            :class="{ error: $v.repeatPassword.$error }"
+            @change="$v.repeatPassword.$touch()"
+          />
+        </div>
         <button class="form__button">Submit</button>
       </form>
     </div>
@@ -33,7 +62,12 @@
 </template>
 
 <script>
-import { required, minLength, email } from 'vuelidate/lib/validators';
+import {
+  required,
+  minLength,
+  email,
+  sameAs,
+} from 'vuelidate/lib/validators';
 import modal from './UI/Modal.vue';
 
 export default {
@@ -42,6 +76,8 @@ export default {
     return {
       name: '',
       email: '',
+      password: '',
+      repeatPassword: '',
     };
   },
   validations: {
@@ -53,6 +89,13 @@ export default {
       required,
       email,
     },
+    password: {
+      required,
+      minLength: minLength(6),
+    },
+    repeatPassword: {
+      sameAsPassword: sameAs('password'),
+    },
   },
   methods: {
     onSubmit() {
@@ -61,12 +104,16 @@ export default {
         const user = {
           name: this.name,
           email: this.email,
+          password: this.password,
+          repeatPassword: this.repeatPassword,
         };
         console.log(user);
         this.name = '';
         this.email = '';
+        this.password = '';
+        this.repeatPassword = '';
         this.$v.$reset();
-        setTimeout(() => this.$emit('close'), 1000);
+        this.$emit('close');
       }
     },
   },
@@ -88,7 +135,9 @@ export default {
 }
 
 #name.error,
-#email.error {
+#email.error,
+#password.error,
+#repeatPassword.error {
   border-color: #de4040;
 }
 </style>

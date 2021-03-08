@@ -247,7 +247,9 @@ label {
 }
 
 #name,
-#email {
+#email,
+#password,
+#repeatPassword {
   font-size: 16px;
   font-weight: 500;
   padding: 5px 5px 5px 10px;
