@@ -23,10 +23,6 @@ export default {
       type: String,
       default: () => 'My modal',
     },
-    // showModal: {
-    //   type: Boolean,
-    //   required: true,
-    // },
   },
 };
 </script>

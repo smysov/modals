@@ -31,6 +31,13 @@
               </form>
             </div>
           </modal>
+          <button @click="modalValidate = !modalValidate" class="button"
+            >open form validate modal</button
+          >
+          <modalValidate
+            v-show="modalValidate"
+            @close="modalValidate = false"
+          ></modalValidate>
         </section>
       </div>
     </div>
@@ -38,11 +45,12 @@
 </template>
 
 <script>
-import modal from '@/components/Modal.vue';
+import modal from '@/components/UI/Modal.vue';
+import modalValidate from '@/components/ModalValidate.vue';
 
 export default {
   name: 'App',
-  components: { modal },
+  components: { modal, modalValidate },
   data() {
     return {
       showModal: false,
@@ -51,6 +59,7 @@ export default {
         name: '',
         email: '',
       },
+      modalValidate: false,
     };
   },
   mounted() {
