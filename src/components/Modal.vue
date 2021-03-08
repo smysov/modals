@@ -1,15 +1,19 @@
 <template>
-  <div class="modal" @click="$emit('close')">
-    <div class="modal__content" @click.stop="">
-      <h2 class="modal__title">{{ title }}</h2>
-      <p>Lorem ipsum dolor sit amet.</p>
-      <button
-        class="modal__close"
-        aria-label="close modal"
-        @click="$emit('close')"
-      ></button>
+  <transition name="modal">
+    <div class="modal" v-if="showModal" @click="$emit('close')">
+      <div class="modal__content" @click.stop="">
+        <h2 class="modal__title">{{ title }}</h2>
+        <button
+          class="modal__close"
+          aria-label="close modal"
+          @click="$emit('close')"
+        ></button>
+        <div class="modal__body">
+          <slot name="body">Default Name</slot>
+        </div>
+      </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>
@@ -19,18 +23,24 @@ export default {
       type: String,
       default: () => 'My modal',
     },
-  },
-  mounted() {
-    document.body.addEventListener('keyup', (e) => {
-      if (e.key === 'Escape') {
-        this.$emit('close');
-      }
-    });
+    showModal: {
+      type: Boolean,
+      required: true,
+    },
   },
 };
 </script>
 
 <style scoped lang="scss">
+.modal-enter-active,
+.modal-leave-active {
+  transition: 0.3s all;
+}
+.modal-enter, .modal-leave-to {
+  transform: scale(1.3);
+  opacity: 0;
+}
+
 .modal {
   position: fixed;
   display: flex;
@@ -93,6 +103,12 @@ export default {
     &::after {
       transform: rotate(-45deg);
     }
+  }
+
+  &__body {
+    font-size: 14px;
+    font-weight: 700;
+    color: #75336e;
   }
 }
 </style>

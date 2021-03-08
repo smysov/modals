@@ -4,7 +4,9 @@
       <div class="container">
         <section class="section">
           <button @click="showModal = !showModal" class="button">open first modal</button>
-          <modal @close="showModal = !showModal" v-if="showModal" :title="title"></modal>
+          <modal @close="showModal = !showModal" :showModal="showModal" :title="title">
+            <div slot="body">My first modal using a slot!</div>
+          </modal>
         </section>
       </div>
     </div>
@@ -22,6 +24,13 @@ export default {
       title: 'First modal',
       showModal: false,
     };
+  },
+  mounted() {
+    document.body.addEventListener('keyup', (e) => {
+      if (e.key === 'Escape') {
+        this.showModal = false;
+      }
+    });
   },
 };
 </script>
