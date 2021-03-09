@@ -141,6 +141,7 @@ section,
 .section {
   position: relative;
   display: flex;
+  justify-content: center;
   column-gap: 10px;
   padding: 20px 0;
 
@@ -246,10 +247,7 @@ label {
   color: #000;
 }
 
-#name,
-#email,
-#password,
-#repeatPassword {
+input {
   font-size: 16px;
   font-weight: 500;
   padding: 5px 5px 5px 10px;

@@ -3,24 +3,24 @@
     <div slot="body">
       <form class="form" @submit.prevent="onSubmit">
         <div class="form__column" :class="{ errorInput: $v.name.$error }">
-          <label for="name">Name:</label>
+          <label for="user-name">Name:</label>
           <p class="errorText" v-if="!$v.name.required"> Filed is required!</p>
           <p class="errorText" v-if="!$v.name.minLength">
             Name must have at least {{ $v.name.$params.minLength.min }} !</p
           >
           <input
-            id="name"
+            id="user-name"
             v-model="name"
             :class="{ error: $v.name.$error }"
             @change="$v.name.$touch()"
           />
         </div>
         <div class="form__column" :class="{ errorInput: $v.email.$error }">
-          <label for="email">Email:</label>
+          <label for="user-email">Email:</label>
           <p class="errorText" v-if="!$v.email.required"> Filed is required!</p>
           <p class="errorText" v-if="!$v.email.email"> Email is not correct!</p>
           <input
-            id="email"
+            id="user-email"
             v-model="email"
             :class="{ error: $v.email.$error }"
             @change="$v.email.$touch()"
@@ -134,8 +134,8 @@ export default {
   }
 }
 
-#name.error,
-#email.error,
+#user-name.error,
+#user-email.error,
 #password.error,
 #repeatPassword.error {
   border-color: #de4040;
