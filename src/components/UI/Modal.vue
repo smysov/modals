@@ -2,12 +2,14 @@
   <div class="modal" @click="$emit('close')">
     <div class="modal__content" @click.stop="">
       <h2 class="modal__title">{{ title }}</h2>
-      <p>Lorem ipsum dolor sit amet.</p>
       <button
         class="modal__close"
         aria-label="close modal"
         @click="$emit('close')"
       ></button>
+      <div class="modal__body">
+        <slot name="body">Default Name</slot>
+      </div>
     </div>
   </div>
 </template>
@@ -19,13 +21,6 @@ export default {
       type: String,
       default: () => 'My modal',
     },
-  },
-  mounted() {
-    document.body.addEventListener('keyup', (e) => {
-      if (e.key === 'Escape') {
-        this.$emit('close');
-      }
-    });
   },
 };
 </script>
@@ -93,6 +88,12 @@ export default {
     &::after {
       transform: rotate(-45deg);
     }
+  }
+
+  &__body {
+    font-size: 14px;
+    font-weight: 700;
+    color: #75336e;
   }
 }
 </style>
