@@ -1,19 +1,17 @@
 <template>
-  <transition name="modal">
-    <div class="modal" @click="$emit('close')">
-      <div class="modal__content" @click.stop="">
-        <h2 class="modal__title">{{ title }}</h2>
-        <button
-          class="modal__close"
-          aria-label="close modal"
-          @click="$emit('close')"
-        ></button>
-        <div class="modal__body">
-          <slot name="body">Default Name</slot>
-        </div>
+  <div class="modal" @click="$emit('close')">
+    <div class="modal__content" @click.stop="">
+      <h2 class="modal__title">{{ title }}</h2>
+      <button
+        class="modal__close"
+        aria-label="close modal"
+        @click="$emit('close')"
+      ></button>
+      <div class="modal__body">
+        <slot name="body">Default Name</slot>
       </div>
     </div>
-  </transition>
+  </div>
 </template>
 
 <script>
@@ -28,15 +26,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.modal-enter-active,
-.modal-leave-active {
-  transition: 0.3s all;
-}
-.modal-enter, .modal-leave-to {
-  transform: scale(1.3);
-  opacity: 0;
-}
-
 .modal {
   position: fixed;
   display: flex;

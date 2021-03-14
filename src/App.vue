@@ -34,10 +34,13 @@
           <button @click="modalValidate = !modalValidate" class="button"
             >open form validate modal</button
           >
-          <modalValidate
-            v-show="modalValidate"
-            @close="modalValidate = false"
-          ></modalValidate>
+
+          <transition name="modal">
+            <modalValidate
+              v-if="modalValidate"
+              @close="modalValidate = false"
+            ></modalValidate
+          ></transition>
         </section>
       </div>
     </div>
@@ -271,5 +274,15 @@ input {
   @media (min-width: 768px) {
     padding: 10px;
   }
+}
+
+.modal-enter-active,
+.modal-leave-active {
+  transition: 0.3s all;
+}
+.modal-enter,
+.modal-leave-to {
+  transform: scale(1.3);
+  opacity: 0;
 }
 </style>
